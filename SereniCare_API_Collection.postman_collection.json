@@ -1,0 +1,656 @@
+{
+  "info": {
+    "name": "SereniCare API",
+    "description": "Postman collection for SereniCare Backend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "description": "User authentication endpoints",
+      "item": [
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"name\": \"John Doe\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/authentication/signup",
+              "host": ["{{base_url}}"],
+              "path": ["authentication", "signup"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/authentication/signin",
+              "host": ["{{base_url}}"],
+              "path": ["authentication", "signin"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Patients",
+      "description": "Patient management endpoints",
+      "item": [
+        {
+          "name": "Get All Patients",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/patients/getAllPatients",
+              "host": ["{{base_url}}"],
+              "path": ["patients", "getAllPatients"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Patient By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/patients/getPatientById/:id",
+              "host": ["{{base_url}}"],
+              "path": ["patients", "getPatientById", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Patient",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"email\": \"jane@example.com\",\n  \"phone\": \"+1234567890\",\n  \"address\": \"123 Main St\",\n  \"dateOfBirth\": \"1990-01-01\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/patients/createPatient",
+              "host": ["{{base_url}}"],
+              "path": ["patients", "createPatient"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Patient",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"email\": \"jane@example.com\",\n  \"phone\": \"+1234567890\",\n  \"address\": \"123 Main St\",\n  \"dateOfBirth\": \"1990-01-01\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/patients/updatePatient/:id",
+              "host": ["{{base_url}}"],
+              "path": ["patients", "updatePatient", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Patient",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/patients/deletePatient/:id",
+              "host": ["{{base_url}}"],
+              "path": ["patients", "deletePatient", ":id"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Clinics",
+      "description": "Clinic management endpoints",
+      "item": [
+        {
+          "name": "Get All Clinics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/clinics/getAllClinics",
+              "host": ["{{base_url}}"],
+              "path": ["clinics", "getAllClinics"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Clinic By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/clinics/getClinicById/:id",
+              "host": ["{{base_url}}"],
+              "path": ["clinics", "getClinicById", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Clinic",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"City Medical Clinic\",\n  \"address\": \"456 Health Ave\",\n  \"phone\": \"+1234567890\",\n  \"email\": \"clinic@example.com\",\n  \"clinicTypeId\": \"clinic_type_id\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clinics/createClinic",
+              "host": ["{{base_url}}"],
+              "path": ["clinics", "createClinic"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Clinic",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"City Medical Clinic\",\n  \"address\": \"456 Health Ave\",\n  \"phone\": \"+1234567890\",\n  \"email\": \"clinic@example.com\",\n  \"clinicTypeId\": \"clinic_type_id\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clinics/updateClinic/:id",
+              "host": ["{{base_url}}"],
+              "path": ["clinics", "updateClinic", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Clinic",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/clinics/deleteClinic/:id",
+              "host": ["{{base_url}}"],
+              "path": ["clinics", "deleteClinic", ":id"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Clinic Types",
+      "description": "Clinic type management endpoints",
+      "item": [
+        {
+          "name": "Get All Clinic Types",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/clinictype/getAllClinicTypes",
+              "host": ["{{base_url}}"],
+              "path": ["clinictype", "getAllClinicTypes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Clinic Type By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/clinictype/getClinicTypeById/:id",
+              "host": ["{{base_url}}"],
+              "path": ["clinictype", "getClinicTypeById", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Clinic Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"General Practice\",\n  \"description\": \"General medical practice clinic\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clinictype/createClinicType",
+              "host": ["{{base_url}}"],
+              "path": ["clinictype", "createClinicType"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Clinic Type",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"General Practice\",\n  \"description\": \"General medical practice clinic\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clinictype/updateClinicType/:id",
+              "host": ["{{base_url}}"],
+              "path": ["clinictype", "updateClinicType", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Clinic Type",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/clinictype/deleteClinicType/:id",
+              "host": ["{{base_url}}"],
+              "path": ["clinictype", "deleteClinicType", ":id"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Specialities",
+      "description": "Medical speciality management endpoints",
+      "item": [
+        {
+          "name": "Get All Specialities",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/speciality/getAllSpeciality",
+              "host": ["{{base_url}}"],
+              "path": ["speciality", "getAllSpeciality"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Speciality By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/speciality/getSpecialityById/:id",
+              "host": ["{{base_url}}"],
+              "path": ["speciality", "getSpecialityById", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Speciality",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cardiology\",\n  \"description\": \"Heart and cardiovascular system specialist\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/speciality/createSpeciality",
+              "host": ["{{base_url}}"],
+              "path": ["speciality", "createSpeciality"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Speciality",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cardiology\",\n  \"description\": \"Heart and cardiovascular system specialist\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/speciality/updateSpeciality/:id",
+              "host": ["{{base_url}}"],
+              "path": ["speciality", "updateSpeciality", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Speciality",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/speciality/deleteSpeciality/:id",
+              "host": ["{{base_url}}"],
+              "path": ["speciality", "deleteSpeciality", ":id"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Roles",
+      "description": "Role management endpoints",
+      "item": [
+        {
+          "name": "Get All Roles",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/role/getAllrole",
+              "host": ["{{base_url}}"],
+              "path": ["role", "getAllrole"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Role By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/role/getroleById/:id",
+              "host": ["{{base_url}}"],
+              "path": ["role", "getroleById", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Doctor\",\n  \"description\": \"Medical doctor role\",\n  \"permissions\": [\"read\", \"write\", \"delete\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/role/createrole",
+              "host": ["{{base_url}}"],
+              "path": ["role", "createrole"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Doctor\",\n  \"description\": \"Medical doctor role\",\n  \"permissions\": [\"read\", \"write\", \"delete\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/role/updaterole/:id",
+              "host": ["{{base_url}}"],
+              "path": ["role", "updaterole", ":id"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Role",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/role/deleterole/:id",
+              "host": ["{{base_url}}"],
+              "path": ["role", "deleterole", ":id"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "your_auth_token_here",
+      "type": "string"
+    }
+  ]
+}
