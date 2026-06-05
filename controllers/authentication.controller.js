@@ -52,7 +52,6 @@ const verifyOTP = async (req, res) => {
 const resetPassword = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
     const result = await resetPassword_Service(email, password);
     res.status(200).json(result);
   } catch (error) {

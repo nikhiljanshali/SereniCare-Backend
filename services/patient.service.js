@@ -9,14 +9,12 @@ export const registerPatient_Service = async (patientData, userId) => {
   let savedPatient = null;
   try {
     const { medicalHistories, insuranceDetails, ...basicData } = patientData;
-    console.log("Received patient data:", patientData);
     const workEmail = patientData?.email;
     const existingUser = await AuthUserModel.findOne({ workEmail });
     if (existingUser)
       throw new Error("User already exists with this workEmail.");
     const count = await PatientModel.countDocuments();
     const patientCode = `PAT-${String(count + 1).padStart(4, "0")}`;
-    console.log("Generated patient code:", patientCode);
     // 1. Create Auth User
     const user = new AuthUserModel({
       firstName: patientData.firstName,
@@ -53,7 +51,6 @@ export const registerPatient_Service = async (patientData, userId) => {
     // 🔹 Insurance Save
     // =========================
     if (insuranceDetails && Array.isArray(insuranceDetails)) {
-      console.log("Saving insurance details:", insuranceDetails);
       const insurances = await InsuranceModel.insertMany(
         insuranceDetails.map((h) => ({
           ...h,

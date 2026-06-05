@@ -6,6 +6,14 @@ const primarySpecialitySchema = new mongoose.Schema({
   description: { type: String },
 });
 
+const qualificaionSchema = new mongoose.Schema({
+  name: { type: String, required: true }
+});
+
+const areaofExpertiseSchema = new mongoose.Schema({
+  name: { type: String, required: true }
+});
+
 const doctorSchema = new mongoose.Schema(
   {
     authUserId: {
@@ -19,6 +27,7 @@ const doctorSchema = new mongoose.Schema(
     lastName: { type: String, required: true },
     gender: { type: String, enum: ["Male", "Female", "Other"] },
     dateOfBirth: Date,
+    dateOfJoin: Date,
     age: Number,
     phone: String,
     email: String,
@@ -35,6 +44,22 @@ const doctorSchema = new mongoose.Schema(
       default: "inactive",
     },
     specializations: [primarySpecialitySchema],
+    officeStatus: {
+      type: String,
+      enum: ["On Duty", "Off Duty", "On Leave"],
+      default: "On Duty",
+    },
+    qualifications: [qualificaionSchema],
+    experience: {
+      type: Number,
+      default: 0
+    },
+    officeNumber: {
+      type: Number,
+      default: 0
+    },
+    residentDoctor: { type: Boolean, default: false },
+    areaOfExpertise: [areaofExpertiseSchema],
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true },

@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import AuthUserModel from "../models/authuser.model.js";
 import ClinicModel from "../models/clinic.model.js";
+import DoctorModel from "../models/doctors.model.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "ShreeHari#486248";
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1d";
@@ -63,15 +64,26 @@ const signinUser_Service = async ({ workEmail, password }) => {
   if (!isValidPassword) {
     throw new Error("Invalid email or password.");
   }
-
   // 🔍 ✅ Fetch clinic linked to this user
   // const clinic = await ClinicModel.findOne({
   //   "admin.userId": user._id,
   // });
+  let userDetails = {};
+
+  if (user.role === "Doctor") {
+    const doctor = await DoctorModel.findOne({
+      authUserId: user._id,
+    });
+
+    userDetails = {
+      id: doctor._id,
+    };
+  }
 
   const token = jwt.sign(
     {
       id: user._id,
+
       workEmail: user.workEmail,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -91,12 +103,7 @@ const signinUser_Service = async ({ workEmail, password }) => {
       phone: user.phone,
       role: user.role,
     },
-    // clinic:{
-    //   id: clinic._id,
-    //   clinicName: clinic.clinicName,
-    //   registrationNumber: clinic.registrationNumber,
-    //   clinicType: clinic.clinicType,
-    // },
+    userDetails
   };
 };
 
@@ -212,7 +219,6 @@ const verifyOTP_Service = async (email, otp) => {
 };
 
 const resetPassword_Service = async (workEmail, password) => {
-  console.log(workEmail, password);
   if (!workEmail || !password) {
     return {
       success: false,

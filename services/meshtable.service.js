@@ -7,7 +7,7 @@ export const getRoleByUserId = async (role) => {
 
 export const getDoctorCount = async (userId) => {
   try {
-    return await AuthUserModel.countDocuments({ role: "doctor" });
+    return await AuthUserModel.countDocuments({ role: "Doctor" });
   } catch (err) {
     console.error("Doctor count error:", err);
     throw err;
@@ -16,7 +16,7 @@ export const getDoctorCount = async (userId) => {
 
 export const getPatientCount = async (userId) => {
   try {
-    return await AuthUserModel.countDocuments({ role: "patient" });
+    return await AuthUserModel.countDocuments({ role: "Patient" });
   } catch (err) {
     console.error("Patient count error:", err);
     throw err;

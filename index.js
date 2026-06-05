@@ -16,6 +16,7 @@ import meshTableRouter from "./routes/meshtable.route.js";
 import bloodGroupRouter from "./routes/bloodgroup.route.js";
 import primaryConditionRouter from "./routes/primarycondition.route.js";
 import allergiesRouter from "./routes/allergies.router.js";
+import appointmentBookingRouter from "./routes/appointmentBooking.route.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -36,6 +37,7 @@ app.use(`${middlePoint}/meshTable`, meshTableRouter);
 app.use(`${middlePoint}/bloodGroup`, bloodGroupRouter);
 app.use(`${middlePoint}/primaryCondition`, primaryConditionRouter);
 app.use(`${middlePoint}/allergies`, allergiesRouter);
+app.use(`${middlePoint}/appointmentBookings`, appointmentBookingRouter);
 
 // Connect to database before starting the server
 let dbConnected = false;
