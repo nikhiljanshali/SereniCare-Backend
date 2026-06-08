@@ -1,8 +1,5 @@
-import PatientModel, {
-  AuthUserModel,
-  MedicalHistoryModel,
-  InsuranceModel,
-} from "../models/patientuser.model.js";
+import PatientModel, { AuthUserModel, MedicalHistoryModel, InsuranceModel, } from "../models/patientuser.model.js";
+import AppointmentBookingModel from '../models/appointmentBooking.model.js'
 
 export const registerPatient_Service = async (patientData, userId) => {
   let savedUser = null;
@@ -93,6 +90,39 @@ export const getPatientById_Service = async (id) => {
   return await PatientModel.findOne({ _id: id, isDeleted: false })
     .populate("medicalHistories")
     .populate("insuranceDetails");
+};
+
+// export const getPatientsByDoctorId_Service = async (doctorId) => {
+//   console.log('doctorId', doctorId);
+//   return await PatientModel.find({
+//     primaryDoctorId: doctorId, isDeleted: false,
+//   }).populate("medicalHistories")
+//     .populate("insuranceDetails")
+//     .sort({ createdAt: -1 });
+// };
+
+export const getPatientsByDoctorId_Service = async (doctorId) => {
+  const patients = await PatientModel.find({
+    primaryDoctorId: doctorId,
+    isDeleted: false,
+  })
+    .populate("medicalHistories")
+    .populate("insuranceDetails")
+    .sort({ createdAt: -1 });
+
+  return await Promise.all(
+    patients.map(async (patient) => {
+      const appointments = await AppointmentBookingModel.find({
+        patientId: patient._id,
+        doctorId: doctorId,
+      }).sort({ appointmentDate: -1 });
+
+      return {
+        ...patient.toObject(),
+        appointments,
+      };
+    })
+  );
 };
 
 export const updatePatient_Service = async (id, patientData, userId) => {

@@ -2,6 +2,7 @@ import {
   getRoleByUserId,
   getDoctorCount,
   getPatientCount,
+  getSupplierCount
 } from "../services/meshtable.service.js";
 
 export const getRoleByUserIdController = async (req, res) => {
@@ -43,6 +44,22 @@ export const getPatientCountController = async (req, res) => {
       success: true,
       message: "Patient count fetched successfully",
       data: { patientCount: count },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const getSupplierCountController = async (req, res) => {
+  try {
+    const count = await getSupplierCount(req.user?.id);
+    res.status(200).json({
+      success: true,
+      message: "Supplier count fetched successfully",
+      data: { supplierCount: count },
     });
   } catch (error) {
     res.status(500).json({

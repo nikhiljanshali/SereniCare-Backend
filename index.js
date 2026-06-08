@@ -17,6 +17,9 @@ import bloodGroupRouter from "./routes/bloodgroup.route.js";
 import primaryConditionRouter from "./routes/primarycondition.route.js";
 import allergiesRouter from "./routes/allergies.router.js";
 import appointmentBookingRouter from "./routes/appointmentBooking.route.js";
+import supplierRouter from "./routes/supplier.router.js";
+import medicineRouter from "./routes/medicine.router.js";
+import prescriptionRouter from './routes/prescription.route.js'
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -38,6 +41,9 @@ app.use(`${middlePoint}/bloodGroup`, bloodGroupRouter);
 app.use(`${middlePoint}/primaryCondition`, primaryConditionRouter);
 app.use(`${middlePoint}/allergies`, allergiesRouter);
 app.use(`${middlePoint}/appointmentBookings`, appointmentBookingRouter);
+app.use(`${middlePoint}/supplier`, supplierRouter);
+app.use(`${middlePoint}/medicine`, medicineRouter);
+app.use(`${middlePoint}/prescription`, prescriptionRouter);
 
 // Connect to database before starting the server
 let dbConnected = false;

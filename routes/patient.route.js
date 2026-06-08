@@ -5,6 +5,7 @@ import {
   createPatient,
   updatePatient,
   deletePatient,
+  getPatientsByDoctorId
 } from "../controllers/patient.controller.js";
 
 const patientRouter = express.Router();
@@ -14,5 +15,6 @@ patientRouter.get("/getPatientById/:id", getPatientById);
 patientRouter.post("/createPatient", createPatient);
 patientRouter.put("/updatePatient/:id", updatePatient);
 patientRouter.delete("/deletePatient/:id", deletePatient);
+patientRouter.get("/getPatientsByDoctorId/:id", getPatientsByDoctorId);
 
 export default patientRouter;

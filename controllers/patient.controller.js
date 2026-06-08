@@ -4,6 +4,7 @@ import {
   registerPatient_Service,
   updatePatient_Service,
   deletePatient_Service,
+  getPatientsByDoctorId_Service
 } from "../services/patient.service.js";
 
 export const createPatient = async (req, res) => {
@@ -104,6 +105,31 @@ export const deletePatient = async (req, res) => {
 
     res.status(200).json({
       message: "Patient deleted successfully",
+      status: true,
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      status: false,
+    });
+  }
+};
+
+export const getPatientsByDoctorId = async (req, res) => {
+  try {
+    console.log(req.params.id);
+    const result = await getPatientsByDoctorId_Service(req.params.id);
+
+    if (!result) {
+      return res.status(404).json({
+        message: "Patient not found",
+        status: false,
+      });
+    }
+
+    res.status(200).json({
+      message: "Patient fetched successfully",
       status: true,
       data: result,
     });

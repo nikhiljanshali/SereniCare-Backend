@@ -60,23 +60,14 @@ export const updateAppointmentBooking = async (req, res) => {
 
 export const updateAppointmentStatus = async (req, res) => {
     try {
-
-        console.log('Test', req.params);
         const { appointmentId } = req.params;
         const { appointmentStatus } = req.body;
-
-        const result = await updateAppointmentStatusService(
-            appointmentId,
-            appointmentStatus
-        );
-
+        const result = await updateAppointmentStatusService(appointmentId, appointmentStatus);
         return res.status(200).json({
             success: true,
             ...result
         });
-
     } catch (error) {
-
         return res.status(500).json({
             success: false,
             message: error.message
