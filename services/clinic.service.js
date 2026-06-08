@@ -86,6 +86,11 @@ export const get_Clinic_ById_Service = async (id) => {
   return clinic;
 };
 
+export const get_Clinics_By_DoctorId_Service = async (doctorId) => {
+  const clinic = await ClinicModel.findOne({ DoctorId: doctorId });
+  return clinic;
+};
+
 export const update_Clinic_Service = async (id, clinicData) => {
   const clinic = await ClinicModel.findByIdAndUpdate(id, clinicData, {
     new: ttrue,

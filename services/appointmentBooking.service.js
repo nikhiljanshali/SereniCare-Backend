@@ -131,6 +131,7 @@ export const getAppointmentBookingByAppointmentIdService = async (appointmentId)
         return await AppointmentBookingModel.findById(appointmentId)
             .populate("doctorId")
             .populate("patientId")
+            .populate("clinicId")
             .sort({ appointmentDate: -1 });
     } catch (error) {
         throw error;

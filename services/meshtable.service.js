@@ -22,3 +22,12 @@ export const getPatientCount = async (userId) => {
     throw err;
   }
 };
+
+export const getSupplierCount = async (userId) => {
+  try {
+    return await AuthUserModel.countDocuments({ role: "Supplier" });
+  } catch (err) {
+    console.error("Supplier count error:", err);
+    throw err;
+  }
+};

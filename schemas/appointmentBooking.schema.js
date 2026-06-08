@@ -20,6 +20,12 @@ const appointmentBookingSchema = new mongoose.Schema(
             required: true,
         },
 
+        clinicId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "clinics",
+            required: true,
+        },
+
         appointmentDate: {
             type: Date,
             required: true,
@@ -124,5 +130,5 @@ const appointmentBookingSchema = new mongoose.Schema(
     {
         timestamps: true,
     }
-); 
+);
 export default appointmentBookingSchema;

@@ -4,6 +4,7 @@ import {
   get_Clinic_ById_Service,
   update_Clinic_Service,
   delete_Clinic_Service,
+  get_Clinics_By_DoctorId_Service
 } from "../services/clinic.service.js";
 
 // =======================
@@ -115,6 +116,35 @@ export const deleteClinic = async (req, res) => {
 
     res.status(200).json({
       message: "Clinic deleted successfully",
+      status: true,
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      status: false,
+    });
+  }
+};
+
+
+
+// =======================
+// 🔹 GET CLINIC LIST BY DOCTORID
+// =======================
+export const getClinicsByDoctorId = async (req, res) => {
+  try {
+    const result = await get_Clinics_By_DoctorId_Service(req.params.id);
+
+    if (!result) {
+      return res.status(404).json({
+        message: "Clinic not found",
+        status: false,
+      });
+    }
+
+    res.status(200).json({
+      message: "Clinic fetched successfully",
       status: true,
       data: result,
     });
