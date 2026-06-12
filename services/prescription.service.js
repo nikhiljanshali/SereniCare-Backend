@@ -1,6 +1,7 @@
 import PrescriptionModel from "../models/prescription.model.js";
 import PatientModel from "../models/patientuser.model.js";
 import DoctorModel from "../models/doctors.model.js";
+import ClinicModel from "../models/clinic.model.js";
 
 /* -------------------------------------------------------------------------- */
 /*                             Add Prescription                               */
@@ -90,10 +91,14 @@ export const getAllPrescriptionsService = async () => {
                 const doctor = await DoctorModel.findById(
                     prescription.doctorId
                 );
+                const clinic = await ClinicModel.findById(
+                    prescription.clinicId
+                )
                 return {
                     ...prescription.toObject(),
                     patientDetails: patient,
-                    doctorDetails: doctor
+                    doctorDetails: doctor,
+                    clinicDetails: clinic
                 };
             })
         );
