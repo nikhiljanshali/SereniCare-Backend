@@ -77,6 +77,12 @@ const prescriptionSchema = new mongoose.Schema(
             ref: "Doctor",
             required: true,
         },
+        
+        clinicId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Clinic",
+            required: true,
+        },
 
         diagnosis: {
             type: [String],

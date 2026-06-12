@@ -143,6 +143,7 @@ export const getAppointmentsByDoctorIdService = async (doctorId) => {
         const appointments = await AppointmentBookingModel.find({ doctorId, })
             .populate("patientId")
             .populate("doctorId")
+            .populate("clinicId")
             .sort({
                 appointmentDate: -1,
                 slotStartTime: 1,
