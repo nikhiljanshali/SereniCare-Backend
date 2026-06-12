@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import cors from "cors";
 import connectDB from "./database-connect.js";
@@ -29,6 +31,10 @@ const middlePoint = "/api/v1";
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.json({ status: "ok", message: "SereniCare backend is running" });
+});
+
 app.use(`${middlePoint}/authentication`, authRouter);
 app.use(`${middlePoint}/patients`, patientRouter);
 app.use(`${middlePoint}/doctors`, doctorsRouter);
@@ -45,22 +51,15 @@ app.use(`${middlePoint}/supplier`, supplierRouter);
 app.use(`${middlePoint}/medicine`, medicineRouter);
 app.use(`${middlePoint}/prescription`, prescriptionRouter);
 
-// Connect to database before starting the server
-let dbConnected = false;
-
+// Start the server after MongoDB connection is established
 connectDB()
   .then(() => {
-    dbConnected = true;
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+      console.log("Database connection established");
+    });
   })
   .catch((error) => {
     console.error("Failed to connect to MongoDB:", error);
+    process.exit(1);
   });
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  if (dbConnected) {
-    console.log("Database connection established");
-  } else {
-    console.warn("Warning: Database connection not yet established");
-  }
-});
