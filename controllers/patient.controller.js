@@ -118,7 +118,6 @@ export const deletePatient = async (req, res) => {
 
 export const getPatientsByDoctorId = async (req, res) => {
   try {
-    console.log(req.params.id);
     const result = await getPatientsByDoctorId_Service(req.params.id);
 
     if (!result) {
