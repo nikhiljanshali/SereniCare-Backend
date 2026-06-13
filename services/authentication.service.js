@@ -4,9 +4,7 @@ import nodemailer from "nodemailer";
 import AuthUserModel from "../models/authuser.model.js";
 import ClinicModel from "../models/clinic.model.js";
 import DoctorModel from "../models/doctors.model.js";
-
-const JWT_SECRET = process.env.JWT_SECRET || "ShreeHari#486248";
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1d";
+import { EMAIL_PASSWORD, EMAIL_SERVICE, EMAIL_USER, JWT_EXPIRES_IN, JWT_SECRET } from "../config.js";
 
 // In-memory OTP storage (use Redis or Database for production)
 const otpStore = new Map();
@@ -114,7 +112,7 @@ const sendOTP_Service = async (email) => {
   }
 
   // Validate email credentials
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+  if (!EMAIL_USER || !EMAIL_PASSWORD) {
     throw new Error(
       "Email credentials are not configured. Please set EMAIL_USER and EMAIL_PASSWORD in environment variables.",
     );
@@ -134,10 +132,10 @@ const sendOTP_Service = async (email) => {
   try {
     // Configure email transporter
     const transporter = nodemailer.createTransport({
-      service: process.env.EMAIL_SERVICE || "gmail",
+      service: EMAIL_SERVICE || "gmail",
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
+        user: EMAIL_USER,
+        pass: EMAIL_PASSWORD,
       },
       tls: {
         rejectUnauthorized: false, // Allow self-signed certificates (development)
@@ -146,7 +144,7 @@ const sendOTP_Service = async (email) => {
 
     // Email content
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: EMAIL_USER,
       to: myEmail,
       subject: "Your SereniCare OTP Verification Code",
       html: `

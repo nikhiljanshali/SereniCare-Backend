@@ -1,8 +1,7 @@
-import dotenv from "dotenv";
-dotenv.config();
 import express from "express";
 import cors from "cors";
 import connectDB from "./database-connect.js";
+import { PORT } from "./config.js";
 
 /**
  * Routes
@@ -24,7 +23,6 @@ import medicineRouter from "./routes/medicine.router.js";
 import prescriptionRouter from './routes/prescription.route.js'
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 const middlePoint = "/api/v1";
 
 /** Middleware */
