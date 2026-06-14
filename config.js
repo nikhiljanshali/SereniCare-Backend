@@ -1,12 +1,17 @@
 import dotenv from "dotenv";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const envMode = process.env.NODE_ENV || "development";
-const envPath = path.resolve(process.cwd(), `.env.${envMode}`);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: envPath });
+const envMode = process.env.NODE_ENV?.trim() || "development";
+const baseEnvPath = path.resolve(__dirname, ".env");
+const modeEnvPath = path.resolve(__dirname, `.env.${envMode}`);
 
-dotenv.config({ path: path.resolve(process.cwd(), ".env") });
+dotenv.config({ path: baseEnvPath });
+
+dotenv.config({ path: modeEnvPath, override: true });
 
 export const PORT = Number(process.env.PORT) || 5000;
 export const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGO_URI || "";

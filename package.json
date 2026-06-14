@@ -10,12 +10,14 @@
   "license": "ISC",
   "author": "Nikhil Janshali",
   "type": "module",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "dotenv -e .env.production -- node index.js",
-    "dev": "dotenv -e .env.development -- nodemon index.js"
+    "start": "dotenv -e .env.production -- node app.js",
+    "dev": "dotenv -e .env.development -- nodemon app.js",
+    "zip": "node createZip.js"
   },
   "dependencies": {
+    "archiver": "^8.0.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
