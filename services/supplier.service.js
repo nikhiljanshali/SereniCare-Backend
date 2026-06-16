@@ -73,7 +73,7 @@ export const getSupplierByAuthUserIdService = async (authUserId) => {
 export const updateSupplierService = async (supplierId, updateData) => {
     try {
         const supplier = await SupplierModel.findByIdAndUpdate(supplierId, updateData, {
-            new: true,
+            returnDocument: 'after',
             runValidators: true
         });
         if (!supplier) {
@@ -91,7 +91,7 @@ export const updateSupplierService = async (supplierId, updateData) => {
 
 export const updateSupplierStatusService = async (supplierId, status) => {
     try {
-        const supplier = await SupplierModel.findByIdAndUpdate(supplierId, { status }, { new: true, runValidators: true });
+        const supplier = await SupplierModel.findByIdAndUpdate(supplierId, { status }, { returnDocument: 'after', runValidators: true });
         if (!supplier) {
             throw new Error("Supplier not found");
         }
@@ -123,7 +123,7 @@ export const deleteSupplierService = async (supplierId) => {
 
 export const deactivateSupplierService = async (supplierId) => {
     try {
-        const supplier = await SupplierModel.findByIdAndUpdate(supplierId, { isActive: false, status: "Inactive" }, { new: true });
+        const supplier = await SupplierModel.findByIdAndUpdate(supplierId, { isActive: false, status: "Inactive" }, { returnDocument: 'after' });
         if (!supplier) {
             throw new Error("Supplier not found");
         }

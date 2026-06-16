@@ -20,7 +20,7 @@ export const update_primaryCondition = async (id, primaryConditionData) => {
     id,
     primaryConditionData,
     {
-      new: true,
+      returnDocument: 'after',
     },
   );
   return primaryCondition;
@@ -30,3 +30,4 @@ export const delete_primaryCondition = async (id) => {
   const primaryCondition = await PrimaryConditionModel.findByIdAndDelete(id);
   return primaryCondition;
 };
+

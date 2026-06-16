@@ -135,7 +135,7 @@ export const updatePatient_Service = async (id, patientData, userId) => {
       ...basicData,
       updatedBy: userId,
     },
-    { new: true },
+    { returnDocument: 'after' },
   );
 
   // Update medical histories if provided
@@ -178,8 +178,9 @@ export const deletePatient_Service = async (id) => {
   return await PatientModel.findByIdAndUpdate(
     id,
     { isDeleted: true },
-    { new: true },
+    { returnDocument: 'after' },
   )
     .populate("medicalHistories")
     .populate("insuranceDetails");
 };
+

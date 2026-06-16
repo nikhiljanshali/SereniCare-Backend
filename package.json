@@ -10,24 +10,27 @@
   "license": "ISC",
   "author": "Nikhil Janshali",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "main": "app.js",
   "scripts": {
-    "start": "dotenv -e .env.production -- node app.js",
-    "dev": "dotenv -e .env.development -- nodemon app.js",
-    "zip": "node createZip.js"
+    "start": "node app.js",
+    "start:local": "cross-env NODE_ENV=development node app.js",
+    "dev": "cross-env NODE_ENV=development nodemon app.js",
+    "zip": "node zip.js"
   },
   "dependencies": {
     "archiver": "^8.0.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.5.0",
     "nodemailer": "^8.0.7"
   },
   "devDependencies": {
-    "dotenv-cli": "^11.0.0",
+    "cross-env": "^7.0.3",
     "nodemon": "^3.1.14"
   }
 }

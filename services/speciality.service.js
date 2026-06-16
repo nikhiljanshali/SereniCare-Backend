@@ -20,7 +20,7 @@ export const updateSpeciality = async (id, specialityData) => {
         id,
         specialityData,
         {
-            new: true,
+            returnDocument: 'after',
         }
     );
     return speciality;

@@ -20,7 +20,7 @@ export const update_clinic_type = async (id, clinicTypeData) => {
     id,
     clinicTypeData,
     {
-      new: true,
+      returnDocument: 'after',
     },
   );
   return clinicType;

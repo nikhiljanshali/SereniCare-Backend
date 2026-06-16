@@ -1,23 +1,16 @@
-import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import * as productionConfig from "./config.production.js";
+import * as localConfig from "./config.local.js";
 
 const envMode = process.env.NODE_ENV?.trim() || "development";
-const baseEnvPath = path.resolve(__dirname, ".env");
-const modeEnvPath = path.resolve(__dirname, `.env.${envMode}`);
+const config = envMode === "development" ? localConfig : productionConfig;
 
-dotenv.config({ path: baseEnvPath });
+export default config;
 
-dotenv.config({ path: modeEnvPath, override: true });
-
-export const PORT = Number(process.env.PORT) || 5000;
-export const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGO_URI || "";
-export const NODE_ENV = envMode;
-export const JWT_SECRET = process.env.JWT_SECRET || "ShreeHari#486248";
-export const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1d";
-export const EMAIL_SERVICE = process.env.EMAIL_SERVICE || "gmail";
-export const EMAIL_USER = process.env.EMAIL_USER || "";
-export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || "";
+export const PORT = config.PORT;
+export const MONGODB_URI = config.MONGODB_URI;
+export const NODE_ENV = config.NODE_ENV;
+export const JWT_SECRET = config.JWT_SECRET;
+export const JWT_EXPIRES_IN = config.JWT_EXPIRES_IN;
+export const EMAIL_SERVICE = config.EMAIL_SERVICE;
+export const EMAIL_USER = config.EMAIL_USER;
+export const EMAIL_PASSWORD = config.EMAIL_PASSWORD;

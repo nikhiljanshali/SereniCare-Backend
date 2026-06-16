@@ -20,7 +20,7 @@ export const update_bloodGroup = async (id, bloodGroupData) => {
     id,
     bloodGroupData,
     {
-      new: true,
+      returnDocument: 'after',
     },
   );
   return bloodGroup;
@@ -30,3 +30,4 @@ export const delete_bloodGroup = async (id) => {
   const bloodGroup = await BloodGroupModel.findByIdAndDelete(id);
   return bloodGroup;
 };
+

@@ -66,7 +66,7 @@ export const addAppointmentBookingService = async (appointmentData) => {
 
 export const updateAppointmentBookingService = async (appointmentId, updateData) => {
     try {
-        const appointment = await AppointmentBookingModel.findByIdAndUpdate(appointmentId, updateData, { new: true, runValidators: true, });
+        const appointment = await AppointmentBookingModel.findByIdAndUpdate(appointmentId, updateData, { returnDocument: 'after', runValidators: true, });
         if (!appointment) {
             throw new Error("Appointment not found");
         }
@@ -83,7 +83,7 @@ export const updateAppointmentStatusService = async (appointmentId, appointmentS
     try {
         const appointment = await AppointmentBookingModel.findByIdAndUpdate(appointmentId, { appointmentStatus },
             {
-                new: true,
+                returnDocument: 'after',
                 runValidators: true
             });
         if (!appointment) {

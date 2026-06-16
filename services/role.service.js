@@ -20,7 +20,7 @@ export const updateRole = async (id, roleData) => {
     id,
     roleData,
     {
-      new: true,
+      returnDocument: 'after',
     },
   );
   return role;
@@ -30,3 +30,4 @@ export const deleteRole = async (id) => {
   const role = await RoleModel.findByIdAndDelete(id);
   return role;
 };
+

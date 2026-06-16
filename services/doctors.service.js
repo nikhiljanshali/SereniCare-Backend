@@ -116,7 +116,7 @@ export const updateDoctorService = async (doctorId, payload) => {
 
     // Update Doctor fields (officeStatus, qualifications, experience, etc.)
     const doctor = await DoctorModel.findByIdAndUpdate(doctorId, doctorData, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true, // Ensure schema validation is applied
     });
     if (!doctor) throw new Error("Doctor not found");
@@ -126,7 +126,7 @@ export const updateDoctorService = async (doctorId, payload) => {
       await AuthUserModel.findByIdAndUpdate(
         doctor.authUserId,
         userData,
-        { new: true }
+        { returnDocument: 'after' }
       );
     }
 
@@ -202,7 +202,7 @@ export const updateDoctorLeaveService = async (leaveId, updateData) => {
       leaveId,
       updateData,
       {
-        new: true,
+        returnDocument: 'after',
         runValidators: true,
       }
     );
@@ -321,7 +321,7 @@ export const updateDoctorEducationService = async (
         educationId,
         updateData,
         {
-          new: true,
+          returnDocument: 'after',
           runValidators: true,
         }
       );
@@ -452,7 +452,7 @@ export const updateDoctorWorkExperienceService = async (
         experienceId,
         updateData,
         {
-          new: true,
+          returnDocument: 'after',
           runValidators: true,
         }
       );
@@ -590,7 +590,7 @@ export const updateDoctorCertificationService = async (
         certificationId,
         updateData,
         {
-          new: true,
+          returnDocument: 'after',
           runValidators: true,
         }
       );
@@ -783,7 +783,7 @@ export const updateDoctorPublicationService = async (
         publicationId,
         updateData,
         {
-          new: true,
+          returnDocument: 'after',
           runValidators: true,
         }
       );
@@ -973,7 +973,7 @@ export const updateDoctorSlotConfigurationService = async (configurationId, upda
         configurationId,
         updateData,
         {
-          new: true,
+          returnDocument: 'after',
           runValidators: true,
         }
       );
@@ -1054,7 +1054,7 @@ export const addDoctorAvailabilityService = async (availabilityData) => {
 
 export const updateDoctorAvailabilityService = async (availabilityId, updateData) => {
   try {
-    const updatedAvailability = await DoctorAvailabilityModel.findByIdAndUpdate(availabilityId, updateData, { new: true, runValidators: true, });
+    const updatedAvailability = await DoctorAvailabilityModel.findByIdAndUpdate(availabilityId, updateData, { returnDocument: 'after', runValidators: true, });
     if (!updatedAvailability) {
       throw new Error(
         "Doctor availability not found"
@@ -1193,7 +1193,7 @@ export const toggleDoctorAvailabilityStatusService =
           availabilityId,
           { isAvailable },
           {
-            new: true,
+            returnDocument: 'after',
             runValidators: true,
           }
         );

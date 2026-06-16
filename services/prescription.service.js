@@ -36,7 +36,7 @@ export const updatePrescriptionService = async (
             prescriptionId,
             updateData,
             {
-                new: true,
+                returnDocument: 'after',
                 runValidators: true
             }
         );
@@ -251,7 +251,7 @@ export const updatePrescriptionStatusService = async (
             await PrescriptionModel.findByIdAndUpdate(
                 prescriptionId,
                 { status },
-                { new: true }
+                { returnDocument: 'after' }
             );
 
         if (!prescription) {

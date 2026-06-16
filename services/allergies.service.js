@@ -21,7 +21,7 @@ export const update_allergies = async (id, allergiesData) => {
     id,
     allergiesData,
     {
-      new: true,
+      returnDocument: 'after',
     },
   );
   return allergies;
@@ -31,3 +31,4 @@ export const delete_allergies = async (id) => {
   const allergies = await AllergiesModel.findByIdAndDelete(id);
   return allergies;
 };
+

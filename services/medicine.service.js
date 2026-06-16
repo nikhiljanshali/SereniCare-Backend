@@ -91,7 +91,7 @@ export const addMedicineService = async (medicineData) => {
 export const updateMedicineService = async (medicineId, updateData) => {
     try {
         const medicine = await MedicineModel.findByIdAndUpdate(medicineId, updateData, {
-            new: true,
+            returnDocument: 'after',
             runValidators: true
         });
         if (!medicine) {
@@ -247,7 +247,7 @@ export const getPrescriptionMedicinesService = async () => {
 
 export const updateMedicineStatusService = async (medicineId, isActive) => {
     try {
-        const medicine = await MedicineModel.findByIdAndUpdate(medicineId, { isActive }, { new: true });
+        const medicine = await MedicineModel.findByIdAndUpdate(medicineId, { isActive }, { returnDocument: 'after' });
         if (!medicine) {
             throw new Error("Medicine not found");
         }
