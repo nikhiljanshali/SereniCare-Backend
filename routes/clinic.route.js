@@ -15,6 +15,6 @@ clinicRouter.get("/getClinicById/:id", getClinicById);
 clinicRouter.post("/createClinic", createClinic);
 clinicRouter.put("/updateClinic/:id", updateClinic);
 clinicRouter.delete("/deleteClinic/:id", deleteClinic);
-clinicRouter.get("/getClinicByDoctorId/:id", getClinicsByDoctorId);
+clinicRouter.get("/getClinicByDoctorId/:doctorId", getClinicsByDoctorId);
 
 export default clinicRouter;

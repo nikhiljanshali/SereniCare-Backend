@@ -22,6 +22,7 @@ export const createDoctorService = async (payload) => {
     const existingUser = await AuthUserModel.findOne({ workEmail });
     if (existingUser)
       throw new Error("User already exists with this workEmail.");
+    const hashedPassword = await bcrypt.hash('Doctor@2026', 10);
 
     // 1. Create Auth User
     const user = new AuthUserModel({
@@ -29,7 +30,7 @@ export const createDoctorService = async (payload) => {
       lastName: userData.lastName,
       workEmail: userData.workEmail,
       phone: userData.phone,
-      password: "Dummy@2026",
+      password: hashedPassword,
       role: userData.role,
     });
     savedUser = await user.save();
@@ -1037,10 +1038,34 @@ export const getDoctorSlotConfigurationByDoctorIdService = async (doctorId) => {
 /* -------------------------------------------------------------------------- */
 export const addDoctorAvailabilityService = async (availabilityData) => {
   try {
-    const availability = await DoctorAvailabilityModel.create(availabilityData);
+    const { doctorId, dayOfWeek } = availabilityData;
+    // Required field validation
+    if (!doctorId) {
+      throw new Error("Doctor ID is required");
+    }
+
+    if (!dayOfWeek) {
+      throw new Error("Day of week is required");
+    }
+
+    // Check for existing availability
+    const existingAvailability = await DoctorAvailabilityModel.findOne({
+      doctorId,
+      dayOfWeek,
+    });
+
+    if (existingAvailability) {
+      throw new Error(
+        `Availability already exists for ${dayOfWeek}`
+      );
+    }
+
+    const availability = await DoctorAvailabilityModel.create(
+      availabilityData
+    );
+
     return {
-      message:
-        "Doctor availability added successfully",
+      message: "Doctor availability added successfully",
       data: availability,
     };
   } catch (error) {

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import allerigesSchema from "../schemas/primarycondition.schema.js";
+import allerigesSchema from "../schemas/allergies.schema.js";
 
 const AllergiesModel = mongoose.model("allergies", allerigesSchema);
 

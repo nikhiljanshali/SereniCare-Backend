@@ -134,7 +134,8 @@ export const deleteClinic = async (req, res) => {
 // =======================
 export const getClinicsByDoctorId = async (req, res) => {
   try {
-    const result = await get_Clinics_By_DoctorId_Service(req.params.id);
+    console.log('req.params.id', req.params.doctorId)
+    const result = await get_Clinics_By_DoctorId_Service(req.params.doctorId);
 
     if (!result) {
       return res.status(404).json({

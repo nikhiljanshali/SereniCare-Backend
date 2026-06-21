@@ -35,10 +35,7 @@ const clinicSchema = new mongoose.Schema(
     pincode: { type: Number, required: true },
     phone: { type: Number, required: true },
     clinicEmail: { type: String, required: true },
-
     specializations: [primarySpecialitySchema],
-
-    // ✅ Linked admin (not storing auth data here)
     admin: adminSchema,
   },
   {

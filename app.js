@@ -21,6 +21,12 @@ import appointmentBookingRouter from "./routes/appointmentBooking.route.js";
 import supplierRouter from "./routes/supplier.router.js";
 import medicineRouter from "./routes/medicine.router.js";
 import prescriptionRouter from './routes/prescription.route.js'
+import chiefComplaintRouter from "./routes/chiefComplaint.router.js"
+import vitalsRouter from "./routes/vitals.router.js"
+import diseasesRouter from "./routes/diseases.router.js"
+import surgeryRouter from  "./routes/surgery.router.js"
+import pastMedicalRouter from "./routes/pastmedical.router.js";
+import PastSurgicalRouter from "./routes/pastsurgical.router.js";
 
 const app = express();
 const middlePoint = "/api/v1";
@@ -48,6 +54,12 @@ app.use(`${middlePoint}/appointmentBookings`, appointmentBookingRouter);
 app.use(`${middlePoint}/supplier`, supplierRouter);
 app.use(`${middlePoint}/medicine`, medicineRouter);
 app.use(`${middlePoint}/prescription`, prescriptionRouter);
+app.use(`${middlePoint}/chiefComplaint`, chiefComplaintRouter);
+app.use(`${middlePoint}/vitals`, vitalsRouter);
+app.use(`${middlePoint}/diseases`, diseasesRouter);
+app.use(`${middlePoint}/surgery`, surgeryRouter);
+app.use(`${middlePoint}/pastMedical`, pastMedicalRouter);
+app.use(`${middlePoint}/pastSurgical`, PastSurgicalRouter);
 
 // Start the server after MongoDB connection is established
 connectDB()

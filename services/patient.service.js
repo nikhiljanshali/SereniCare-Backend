@@ -1,5 +1,6 @@
 import PatientModel, { AuthUserModel, MedicalHistoryModel, InsuranceModel, } from "../models/patientuser.model.js";
 import AppointmentBookingModel from '../models/appointmentBooking.model.js'
+import bcrypt from "bcryptjs";
 
 export const registerPatient_Service = async (patientData, userId) => {
   let savedUser = null;
@@ -10,6 +11,7 @@ export const registerPatient_Service = async (patientData, userId) => {
     const existingUser = await AuthUserModel.findOne({ workEmail });
     if (existingUser)
       throw new Error("User already exists with this workEmail.");
+    const hashedPassword = await bcrypt.hash('Patient@2026', 10);
     const count = await PatientModel.countDocuments();
     const patientCode = `PAT-${String(count + 1).padStart(4, "0")}`;
     // 1. Create Auth User
@@ -18,7 +20,7 @@ export const registerPatient_Service = async (patientData, userId) => {
       lastName: patientData.lastName,
       workEmail: patientData.email,
       phone: patientData.phone,
-      password: "Dummy@2026",
+      password: hashedPassword,
       role: patientData.role,
     });
     savedUser = await user.save();
@@ -92,24 +94,14 @@ export const getPatientById_Service = async (id) => {
     .populate("insuranceDetails");
 };
 
-// export const getPatientsByDoctorId_Service = async (doctorId) => {
-//   console.log('doctorId', doctorId);
-//   return await PatientModel.find({
-//     primaryDoctorId: doctorId, isDeleted: false,
-//   }).populate("medicalHistories")
-//     .populate("insuranceDetails")
-//     .sort({ createdAt: -1 });
-// };
-
 export const getPatientsByDoctorId_Service = async (doctorId) => {
   const patients = await PatientModel.find({
     primaryDoctorId: doctorId,
     isDeleted: false,
-  })
-    .populate("medicalHistories")
+  }).populate("medicalHistories")
     .populate("insuranceDetails")
     .sort({ createdAt: -1 });
-
+    
   return await Promise.all(
     patients.map(async (patient) => {
       const appointments = await AppointmentBookingModel.find({

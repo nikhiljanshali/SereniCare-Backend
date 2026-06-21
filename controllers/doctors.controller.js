@@ -1092,23 +1092,12 @@ export const getDoctorSlotConfigurationByDoctorId = async (req, res) => {
 
 
 
-
-
-
 /* -------------------------------------------------------------------------- */
 /*                    Add Doctor Availability Controller                       */
 /* -------------------------------------------------------------------------- */
-
-export const addDoctorAvailability = async (
-  req,
-  res
-) => {
+export const addDoctorAvailability = async (req, res) => {
   try {
-    const result =
-      await addDoctorAvailabilityService(
-        req.body
-      );
-
+    const result = await addDoctorAvailabilityService(req.body);
     res.status(201).json({
       success: true,
       message:
@@ -1127,215 +1116,207 @@ export const addDoctorAvailability = async (
 /*                  Update Doctor Availability Controller                      */
 /* -------------------------------------------------------------------------- */
 
-export const updateDoctorAvailability =
-  async (req, res) => {
-    try {
-      const { id } = req.params;
+export const updateDoctorAvailability = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result =
+      await updateDoctorAvailabilityService(
+        id,
+        req.body
+      );
 
-      const result =
-        await updateDoctorAvailabilityService(
-          id,
-          req.body
-        );
-
-      res.status(200).json({
-        success: true,
-        message:
-          "Doctor availability updated successfully",
-        data: result,
-      });
-    } catch (error) {
-      res.status(
-        error.message ===
-          "Doctor availability not found"
-          ? 404
-          : 500
-      ).json({
-        success: false,
-        message: error.message,
-      });
-    }
-  };
+    res.status(200).json({
+      success: true,
+      message:
+        "Doctor availability updated successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(
+      error.message ===
+        "Doctor availability not found"
+        ? 404
+        : 500
+    ).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 /* -------------------------------------------------------------------------- */
 /*                  Delete Doctor Availability Controller                      */
 /* -------------------------------------------------------------------------- */
 
-export const deleteDoctorAvailability =
-  async (req, res) => {
-    try {
-      const { id } = req.params;
+export const deleteDoctorAvailability = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-      const result =
-        await deleteDoctorAvailabilityService(
-          id
-        );
+    const result =
+      await deleteDoctorAvailabilityService(
+        id
+      );
 
-      res.status(200).json({
-        success: true,
-        message:
-          "Doctor availability deleted successfully",
-        data: result,
-      });
-    } catch (error) {
-      res.status(
-        error.message ===
-          "Doctor availability not found"
-          ? 404
-          : 500
-      ).json({
-        success: false,
-        message: error.message,
-      });
-    }
-  };
+    res.status(200).json({
+      success: true,
+      message:
+        "Doctor availability deleted successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(
+      error.message ===
+        "Doctor availability not found"
+        ? 404
+        : 500
+    ).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 /* -------------------------------------------------------------------------- */
 /*                Get All Doctor Availability Controller                       */
 /* -------------------------------------------------------------------------- */
 
-export const getAllDoctorAvailability =
-  async (req, res) => {
-    try {
-      const result =
-        await getAllDoctorAvailabilityService();
+export const getAllDoctorAvailability = async (req, res) => {
+  try {
+    const result =
+      await getAllDoctorAvailabilityService();
 
-      res.status(200).json({
-        success: true,
-        message:
-          "Doctor availability list fetched successfully",
-        data: result,
-      });
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        message: error.message,
-      });
-    }
-  };
+    res.status(200).json({
+      success: true,
+      message:
+        "Doctor availability list fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 /* -------------------------------------------------------------------------- */
 /*              Get Doctor Availability By Id Controller                       */
 /* -------------------------------------------------------------------------- */
 
-export const getDoctorAvailabilityById =
-  async (req, res) => {
-    try {
-      const { id } = req.params;
+export const getDoctorAvailabilityById = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-      const result =
-        await getDoctorAvailabilityByIdService(
-          id
-        );
+    const result =
+      await getDoctorAvailabilityByIdService(
+        id
+      );
 
-      res.status(200).json({
-        success: true,
-        message:
-          "Doctor availability fetched successfully",
-        data: result,
-      });
-    } catch (error) {
-      res.status(
-        error.message ===
-          "Doctor availability not found"
-          ? 404
-          : 500
-      ).json({
-        success: false,
-        message: error.message,
-      });
-    }
-  };
+    res.status(200).json({
+      success: true,
+      message:
+        "Doctor availability fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(
+      error.message ===
+        "Doctor availability not found"
+        ? 404
+        : 500
+    ).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 /* -------------------------------------------------------------------------- */
 /*         Get Doctor Availability By Doctor Id Controller                     */
 /* -------------------------------------------------------------------------- */
 
-export const getDoctorAvailabilityByDoctorId =
-  async (req, res) => {
-    try {
-      const { doctorId } = req.params;
+export const getDoctorAvailabilityByDoctorId = async (req, res) => {
+  try {
+    const { doctorId } = req.params;
 
-      const result =
-        await getDoctorAvailabilityByDoctorIdService(
-          doctorId
-        );
+    const result =
+      await getDoctorAvailabilityByDoctorIdService(
+        doctorId
+      );
 
-      res.status(200).json({
-        success: true,
-        message:
-          "Doctor availability list fetched successfully",
-        data: result,
-      });
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        message: error.message,
-      });
-    }
-  };
+    res.status(200).json({
+      success: true,
+      message:
+        "Doctor availability list fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 /* -------------------------------------------------------------------------- */
 /*          Get Doctor Availability By Day Controller                          */
 /* -------------------------------------------------------------------------- */
 
-export const getDoctorAvailabilityByDay =
-  async (req, res) => {
-    try {
-      const { doctorId, dayOfWeek } =
-        req.params;
+export const getDoctorAvailabilityByDay = async (req, res) => {
+  try {
+    const { doctorId, dayOfWeek } =
+      req.params;
 
-      const result =
-        await getDoctorAvailabilityByDayService(
-          doctorId,
-          dayOfWeek
-        );
+    const result =
+      await getDoctorAvailabilityByDayService(
+        doctorId,
+        dayOfWeek
+      );
 
-      res.status(200).json({
-        success: true,
-        message:
-          "Doctor availability fetched successfully",
-        data: result,
-      });
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        message: error.message,
-      });
-    }
-  };
+    res.status(200).json({
+      success: true,
+      message:
+        "Doctor availability fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 /* -------------------------------------------------------------------------- */
 /*          Toggle Doctor Availability Status Controller                       */
 /* -------------------------------------------------------------------------- */
 
-export const toggleDoctorAvailabilityStatus =
-  async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { isAvailable } = req.body;
+export const toggleDoctorAvailabilityStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { isAvailable } = req.body;
 
-      const result =
-        await toggleDoctorAvailabilityStatusService(
-          id,
-          isAvailable
-        );
+    const result =
+      await toggleDoctorAvailabilityStatusService(
+        id,
+        isAvailable
+      );
 
-      res.status(200).json({
-        success: true,
-        message:
-          "Doctor availability status updated successfully",
-        data: result,
-      });
-    } catch (error) {
-      res.status(
-        error.message ===
-          "Doctor availability not found"
-          ? 404
-          : 500
-      ).json({
-        success: false,
-        message: error.message,
-      });
-    }
-  };
+    res.status(200).json({
+      success: true,
+      message:
+        "Doctor availability status updated successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(
+      error.message ===
+        "Doctor availability not found"
+        ? 404
+        : 500
+    ).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

@@ -87,13 +87,17 @@ export const get_Clinic_ById_Service = async (id) => {
 };
 
 export const get_Clinics_By_DoctorId_Service = async (doctorId) => {
-  const clinic = await ClinicModel.findOne({ DoctorId: doctorId });
-  return clinic;
+  console.log('doctorId=>>>', doctorId);
+  const clinics = await ClinicModel.find({
+    doctorId: doctorId,
+  }).sort({ createdAt: -1 });
+  console.log(clinics);
+  return clinics;
 };
 
 export const update_Clinic_Service = async (id, clinicData) => {
   const clinic = await ClinicModel.findByIdAndUpdate(id, clinicData, {
-    new: ttrue,
+    new: true,
   });
   return clinic;
 };

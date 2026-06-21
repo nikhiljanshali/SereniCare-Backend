@@ -1,4 +1,6 @@
 import AuthUserModel from "../models/authuser.model.js";
+import MedicineModel from "../models/medicine.model.js";
+import AppointmentBookingModel from "../models/appointmentBooking.model.js";
 
 export const getRoleByUserId = async (role) => {
   const result = await AuthUserModel.findById(role);
@@ -28,6 +30,24 @@ export const getSupplierCount = async (userId) => {
     return await AuthUserModel.countDocuments({ role: "Supplier" });
   } catch (err) {
     console.error("Supplier count error:", err);
+    throw err;
+  }
+};
+
+export const getMedicineCount = async (userId) => {
+  try {
+    return await MedicineModel.countDocuments();
+  } catch (err) {
+    console.error("Medicine count error:", err);
+    throw err;
+  }
+};
+
+export const getAppointmentCount = async (userId) => {
+  try {
+    return await AppointmentBookingModel.countDocuments();
+  } catch (err) {
+    console.error("AppoinmentBooking count error:", err);
     throw err;
   }
 };
