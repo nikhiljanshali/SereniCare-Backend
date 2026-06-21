@@ -6,7 +6,7 @@ import {
     fetchPastSurgical,
     fetchPastSurgicalById,
     fetchPastSurgicalByPatientId,
-} from "../controllers/PastSurgical.controller.js";
+} from "../controllers/pastsurgical.controller.js";
 
 import authMiddleware from "../middlewares/auth.middleware.js";
 
@@ -17,6 +17,6 @@ PastSurgicalRouter.put("/updatePastSurgical/:id", authMiddleware, editPastSurgic
 PastSurgicalRouter.delete("/deletePastSurgical/:id", authMiddleware, removePastSurgical);
 PastSurgicalRouter.get("/getAllPastSurgical", authMiddleware, fetchPastSurgical);
 PastSurgicalRouter.get("/getPastSurgicalById/:id", authMiddleware, fetchPastSurgicalById);
-PastSurgicalRouter.get("/getPastSurgicalByPatientId/:patientId", authMiddleware, fetchPastSurgicalByPatientId);
+PastSurgicalRouter.get("/getPastSurgicalByPatientId/:id", authMiddleware, fetchPastSurgicalByPatientId);
 
 export default PastSurgicalRouter;

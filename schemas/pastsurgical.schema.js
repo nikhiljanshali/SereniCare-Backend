@@ -30,7 +30,7 @@ const pastSurgicalSchema = new mongoose.Schema(
             required: true,
         },
         outcome: {
-            type: Boolean,
+            type: String,
             required: true,
         },
         complications: {

@@ -2,6 +2,7 @@ import PastSurgicalModel from "../models/pastsurgical.model.js";
 // Add Past Medical History
 export const addPastSurgical = async (data) => {
     try {
+        console.log(data);
         const PastSurgical = new PastSurgicalModel(data);
         return await PastSurgical.save();
     } catch (error) {
@@ -78,14 +79,16 @@ export const getPastSurgicalById = async (id) => {
 
 export const getPastSurgicalByPatientId = async (id) => {
     try {
-        const data = await PastSurgicalModel.findById(id)
-            .populate("diagnosedBy", "name email")
-            .populate("createdBy", "name")
-            .populate("updatedBy", "name");
-        if (!data) {
-            throw new Error("Past medical history not found");
-        }
-        return data;
+        console.log(id);
+        const pastMedicalHistory = await PastSurgicalModel.find({ patientId: id })
+            .populate("surgeonName", "firstName lastName email")
+            .populate("createdBy", "name email")
+            .populate("updatedBy", "name email")
+            .sort({ createdAt: -1 });
+        return {
+            message: "Past Surgical History fetched successfully",
+            data: pastMedicalHistory
+        };
     } catch (error) {
         throw new Error(error.message);
     }

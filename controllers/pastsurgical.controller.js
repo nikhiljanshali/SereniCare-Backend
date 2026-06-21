@@ -5,7 +5,7 @@ import {
     getAllPastSurgical,
     getPastSurgicalById,
     getPastSurgicalByPatientId
-} from "../services/PastSurgical.service.js";
+} from "../services/pastsurgical.service.js";
 
 // Add
 export const createPastSurgical = async (req, res) => {
@@ -97,9 +97,7 @@ export const fetchPastSurgicalById = async (req, res) => {
 
 export const fetchPastSurgicalByPatientId = async (req, res) => {
     try {
-        const data = await getPastSurgicalByPatientId(
-            req.params.id
-        );
+        const data = await getPastSurgicalByPatientId(req.params.id);
 
         res.json({
             success: true,
