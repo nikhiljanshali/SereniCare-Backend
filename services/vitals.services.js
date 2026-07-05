@@ -19,7 +19,6 @@ export const getVitalById = async (id) => {
 };
 
 export const getVitalByPatientId = async (patientId) => {
-    console.log('patientId======>', patientId);
     const id = patientId?._id || patientId;
     return await VitalModel
         .find({
@@ -33,4 +32,22 @@ export const getAllVitals = async (tenantId) => {
         tenantId,
         isActive: true,
     }).populate("patientId").sort({ createdAt: -1 });
+};
+
+
+export const getLatestVitalByPatientId = async (patientId) => {
+    const id = patientId?._id || patientId;
+
+    return await VitalModel.findOne({
+        patientId: id,
+    }).sort({ vitalDateTime: -1 }); // or createdAt: -1
+};
+
+export const getLatestVitalByPatientIdWithDoc = async (patientId) => {
+    const id = patientId?._id || patientId;
+
+    return await VitalModel.findOne({ patientId: id })
+        .populate('doctorId', 'firstName lastName')
+        .sort({ vitalDateTime: -1 })
+        .lean();
 };

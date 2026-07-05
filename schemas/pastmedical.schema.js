@@ -30,6 +30,28 @@ const pastMedicalHistoryDocumentSchema = new mongoose.Schema(
     { _id: true }
 );
 
+const assignedMedicationSchema = new mongoose.Schema({
+    medicineName: {
+        type: String,
+        required: true
+    },
+    dosage: {
+        type: String
+    },
+    dosageUnit: {
+        type: String
+    },
+    frequency: {
+        type: String
+    },
+    duration: {
+        type: String
+    },
+    durationUnit: {
+        type: String
+    }
+})
+
 const pastMedicalSchema = new mongoose.Schema(
     {
         patientId: {
@@ -70,23 +92,7 @@ const pastMedicalSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        medications: [
-            {
-                medicineName: {
-                    type: String,
-                    required: true
-                },
-                dosage: {
-                    type: String
-                },
-                frequency: {
-                    type: String
-                },
-                duration: {
-                    type: String
-                }
-            }
-        ],
+        medications: [assignedMedicationSchema],
         outcome: {
             type: String,
             required: true,

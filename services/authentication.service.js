@@ -4,6 +4,7 @@ import nodemailer from "nodemailer";
 import AuthUserModel from "../models/authuser.model.js";
 import ClinicModel from "../models/clinic.model.js";
 import DoctorModel from "../models/doctors.model.js";
+import PatientModel from "../models/patientuser.model.js";
 import { EMAIL_PASSWORD, EMAIL_SERVICE, EMAIL_USER, JWT_EXPIRES_IN, JWT_SECRET } from "../config.js";
 
 // In-memory OTP storage (use Redis or Database for production)
@@ -78,14 +79,18 @@ const signinUser_Service = async ({ workEmail, password }) => {
     };
   }
 
+  if (user.role === "Patient") {
+    const patient = await PatientModel.findOne({
+      authUserId: user._id,
+    });
+
+    userDetails = {
+      id: patient._id,
+    };
+  }
   const token = jwt.sign(
     {
-      id: user._id,
-
-      workEmail: user.workEmail,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      role: user.role,
+      id: user._id, workEmail: user.workEmail, firstName: user.firstName, lastName: user.lastName, role: user.role,
     },
     JWT_SECRET,
     { expiresIn: JWT_EXPIRES_IN },

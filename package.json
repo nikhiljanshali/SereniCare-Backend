@@ -16,14 +16,15 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "start:local": "cross-env NODE_ENV=development node app.js",
-    "dev": "cross-env NODE_ENV=development nodemon app.js",
+    "dev": "set NODE_ENV=development&& node app.js",
+    "prod": "set NODE_ENV=production&& node app.js",
     "zip": "node zip.js"
   },
   "dependencies": {
     "archiver": "^8.0.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.5.0",

@@ -1,6 +1,23 @@
 import PatientModel, { AuthUserModel, MedicalHistoryModel, InsuranceModel, } from "../models/patientuser.model.js";
 import AppointmentBookingModel from '../models/appointmentBooking.model.js'
+import CounterModel from "../models/counter.model.js"
+import DoctorModel from "../models/doctors.model.js"
 import bcrypt from "bcryptjs";
+
+export const generateUHIDSequenceNo = async () => {
+  const counter = await CounterModel.findByIdAndUpdate(
+    "UHID",
+    {
+      $inc: { seq: 1 },
+    },
+    {
+      new: true,
+      upsert: true,
+    }
+  );
+
+  return String(counter.seq).padStart(10, "0");
+};
 
 export const registerPatient_Service = async (patientData, userId) => {
   let savedUser = null;
@@ -14,6 +31,7 @@ export const registerPatient_Service = async (patientData, userId) => {
     const hashedPassword = await bcrypt.hash('Patient@2026', 10);
     const count = await PatientModel.countDocuments();
     const patientCode = `PAT-${String(count + 1).padStart(4, "0")}`;
+    const UHIDSequenceNo = `UHID${await generateUHIDSequenceNo()}`;
     // 1. Create Auth User
     const user = new AuthUserModel({
       firstName: patientData.firstName,
@@ -29,6 +47,7 @@ export const registerPatient_Service = async (patientData, userId) => {
     const patient = new PatientModel({
       ...basicData,
       patientCode,
+      UHIDSequenceNo,
       authUserId: savedUser._id,
       createdBy: userId,
     });
@@ -38,9 +57,10 @@ export const registerPatient_Service = async (patientData, userId) => {
     // =========================
     if (medicalHistories && Array.isArray(medicalHistories)) {
       const histories = await MedicalHistoryModel.insertMany(
-        medicalHistories.map((h) => ({
-          ...h,
-          patientId: savedPatient._id,
+        medicalHistories.map((history) => ({
+          ...history,
+          patientId:
+            savedPatient._id,
         })),
       );
       savedPatient.medicalHistories = histories.map((h) => h._id);
@@ -89,9 +109,28 @@ export const getAllPatients_Service = async () => {
 };
 
 export const getPatientById_Service = async (id) => {
-  return await PatientModel.findOne({ _id: id, isDeleted: false })
-    .populate("medicalHistories")
-    .populate("insuranceDetails");
+  const patients = await PatientModel.find({
+    _id: id,
+    isDeleted: false,
+  }).populate("medicalHistories")
+    .populate("insuranceDetails")
+    .sort({ createdAt: -1 });
+
+  return await Promise.all(
+    patients.map(async (patient) => {
+      const doctor = await DoctorModel.findOne({
+        _id: patient.primaryDoctorId,
+      }).select("firstName lastName specialization qualification experience consultationFee authUserId")
+      // .populate({
+      //   path: "authUserId",
+      //   select: "firstName lastName workEmail phone",
+      // });
+      return {
+        ...patient.toObject(),
+        doctorDetails: doctor,
+      };
+    })
+  );
 };
 
 export const getPatientsByDoctorId_Service = async (doctorId) => {
@@ -101,7 +140,7 @@ export const getPatientsByDoctorId_Service = async (doctorId) => {
   }).populate("medicalHistories")
     .populate("insuranceDetails")
     .sort({ createdAt: -1 });
-    
+
   return await Promise.all(
     patients.map(async (patient) => {
       const appointments = await AppointmentBookingModel.find({

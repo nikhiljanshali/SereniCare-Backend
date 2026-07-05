@@ -1,9 +1,18 @@
 import AllergiesModel from "../models/allergies.model.js";
 
 export const create_allergies = async (allergiesData) => {
-  const allergies =
-    await AllergiesModel.create(allergiesData);
-  return allergies;
+  try {
+    // Check if data is array
+    if (Array.isArray(allergiesData)) {
+      const allergies = await AllergiesModel.insertMany(allergiesData);
+      return allergies;
+    }
+    // Single object create
+    const allergy = await AllergiesModel.create(allergiesData);
+    return allergy;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export const get_all_allergies = async () => {

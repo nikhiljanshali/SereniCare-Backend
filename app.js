@@ -27,6 +27,13 @@ import diseasesRouter from "./routes/diseases.router.js"
 import surgeryRouter from  "./routes/surgery.router.js"
 import pastMedicalRouter from "./routes/pastmedical.router.js";
 import PastSurgicalRouter from "./routes/pastsurgical.router.js";
+import familyHistoryRouter from "./routes/familyhistory.router.js"
+import patientAllergiesRouter from "./routes/patient-allergies.router.js"
+import riskMasterRouter from "./routes/riskmaster.router.js"
+import patientRiskRouter from "./routes/patientrisk.router.js"
+import patientDrugReactionRouter from "./routes/patient-drug-raction.router.js"
+import familyHistoryLineageRouter from "./routes/familyHistoryLineage.router.js"
+
 
 const app = express();
 const middlePoint = "/api/v1";
@@ -60,6 +67,12 @@ app.use(`${middlePoint}/diseases`, diseasesRouter);
 app.use(`${middlePoint}/surgery`, surgeryRouter);
 app.use(`${middlePoint}/pastMedical`, pastMedicalRouter);
 app.use(`${middlePoint}/pastSurgical`, PastSurgicalRouter);
+app.use(`${middlePoint}/familyHistory`, familyHistoryRouter);
+app.use(`${middlePoint}/patientAllergies`, patientAllergiesRouter);
+app.use(`${middlePoint}/riskMaster`, riskMasterRouter);
+app.use(`${middlePoint}/patientRisk`, patientRiskRouter);
+app.use(`${middlePoint}/patientDrugReaction`, patientDrugReactionRouter);
+app.use(`${middlePoint}/familyHistoryLineage`, familyHistoryLineageRouter);
 
 // Start the server after MongoDB connection is established
 connectDB()

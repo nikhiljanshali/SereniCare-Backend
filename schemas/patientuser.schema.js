@@ -7,13 +7,11 @@ const medicalHistorySchema = new mongoose.Schema(
       ref: "patients",
       required: true,
     },
-
     bloodGroup: String,
     condition: String,
     allergies: [String],
     medications: [String],
     surgeries: [String],
-
     familyHistory: String,
     lifestyle: {
       smoking: {
@@ -26,27 +24,19 @@ const medicalHistorySchema = new mongoose.Schema(
         frequency: String, // e.g. "Weekly", "Monthly"
       },
       activityLevel: String, // Sedentary / Moderate / Active
-
       dietType: String, // Veg / Non-Veg / Vegan / Jain / Mixed
       exerciseFrequency: String, // Daily / Weekly / Rare
-
       sleepHours: Number,
       stressLevel: String, // Low / Medium / High
-
       caffeineIntake: String, // None / Low / Moderate / High
-
       waterIntake: Number, // Liters per day
-
       occupationType: String, // Desk / Field / Mixed
-
       hobbies: [String],
-
       substanceUse: {
         tobacco: Boolean,
         drugs: Boolean,
       },
     },
-
     notes: String,
   },
   { timestamps: true },
@@ -59,17 +49,14 @@ const insuranceSchema = new mongoose.Schema(
       ref: "patients",
       required: true,
     },
-
     providerName: String,
     policyNumber: String,
     policyHolderName: String,
     relationToHolder: String, // Self / Spouse / Parent / Child / Other
     coverageAmount: Number,
     coverageDetails: String,
-
     validFrom: Date,
     validTo: Date,
-
     status: {
       type: String,
       enum: ["active", "expired"],
@@ -109,6 +96,7 @@ const patientSchema = new mongoose.Schema(
     // 🔹 Identification (future use: govt / hospital)
     patientCode: { type: String, unique: true, sparse: true }, // e.g. PAT-0001
     aadhaarNumber: { type: String }, // optional (India context)
+    UHIDSequenceNo: { type: String, unique: true, sparse: true },
 
     // 🔹 Emergency Contact
     emergencyContact: {
