@@ -1,7 +1,6 @@
 import ChiefComplaintModel from "../models/chiefComplaint.model.js";
 
 export const addChiefComplaint = async (payload) => {
-    console.log(payload);
     return await ChiefComplaintModel.create(payload);
 };
 

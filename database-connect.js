@@ -9,9 +9,7 @@ async function connectToDatabase() {
         : "Local MongoDB connection string is not defined. Ensure MongoDB is running locally or set MONGODB_URI."
     );
   }
-
   await mongoose.connect(MONGODB_URI);
-  console.log(MONGODB_URI);
   console.log(`Connected to MongoDB (${NODE_ENV})`);
 }
 

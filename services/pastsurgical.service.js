@@ -2,7 +2,6 @@ import PastSurgicalModel from "../models/pastsurgical.model.js";
 // Add Past Medical History
 export const addPastSurgical = async (data) => {
     try {
-        console.log(data);
         const PastSurgical = new PastSurgicalModel(data);
         return await PastSurgical.save();
     } catch (error) {
@@ -79,7 +78,6 @@ export const getPastSurgicalById = async (id) => {
 
 export const getPastSurgicalByPatientId = async (id) => {
     try {
-        console.log(id);
         const pastMedicalHistory = await PastSurgicalModel.find({ patientId: id })
             .populate("surgeonName", "firstName lastName email")
             .populate("createdBy", "name email")

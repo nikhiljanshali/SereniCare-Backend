@@ -2,12 +2,28 @@ import PastMedicalModel from "../models/pastmedical.model.js";
 // Add Past Medical History
 export const addPastMedical = async (data) => {
     try {
+        const lastRecord = await PastMedicalModel
+            .findOne()
+            .sort({ createdAt: -1 });
+
+        let nextNumber = 1;
+
+        if (lastRecord?.pastMedicalCode) {
+            const lastNumber = parseInt(
+                lastRecord.pastMedicalCode.replace("PMH", ""),
+                10
+            );
+            nextNumber = lastNumber + 1;
+        }
+
+        data.pastMedicalCode = `PMH${String(nextNumber).padStart(5, "0")}`;
+
         const pastMedical = new PastMedicalModel(data);
         return await pastMedical.save();
     } catch (error) {
         throw new Error(error.message);
     }
-};
+};;
 // Update Past Medical History
 export const updatePastMedical = async (id, data) => {
     try {
@@ -93,6 +109,7 @@ export const getPastMedicalByPatientId = async (id) => {
     try {
         const pastMedicalHistory = await PastMedicalModel.find({ patientId: id })
             .populate("diagnosedBy", "firstName lastName email")
+            // .populate("medications", "dosage dosageUnit duration durationUnit frequency medicineName _id")
             .populate("createdBy", "name email")
             .populate("updatedBy", "name email")
             .sort({ createdAt: -1 });

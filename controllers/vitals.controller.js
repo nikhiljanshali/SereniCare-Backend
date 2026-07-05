@@ -1,5 +1,6 @@
 import {
     addVital, updateVital, deleteVital, getAllVitals, getVitalById, getVitalByPatientId,
+    getLatestVitalByPatientId, getLatestVitalByPatientIdWithDoc
 } from "../services/vitals.services.js";
 
 export const createVitalsController = async (req, res) => {
@@ -101,6 +102,36 @@ export const getAllVitalssController = async (req, res) => {
                 req.user.tenantId
             );
 
+        res.status(200).json({
+            success: true,
+            data: vitalss,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+export const getLatestVitalByPatientIdController = async (req, res) => {
+    try {
+        const vitalss = await getLatestVitalByPatientId(req.params.patientId);
+        res.status(200).json({
+            success: true,
+            data: vitalss,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+export const getLatestVitalByPatientIdWithDocController = async (req, res) => {
+    try {
+        const vitalss = await getLatestVitalByPatientIdWithDoc(req.params.patientId);
         res.status(200).json({
             success: true,
             data: vitalss,
