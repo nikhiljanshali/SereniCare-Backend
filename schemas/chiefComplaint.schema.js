@@ -23,9 +23,39 @@ const chiefComplaintSchema = new mongoose.Schema(
 
         complaint: {
             type: String,
-            required: true,
             trim: true,
-            maxlength: 500,
+            required: true
+        },
+        duration: {
+            type: String,
+            trim: true,
+            required: true
+        },
+        onset: {
+            type: String,
+            enum: [
+                'Sudden',
+                'Gradual'
+            ],
+            required: true
+        },
+        severity: {
+            type: String,
+            enum: [
+                'Mild',
+                'Moderate',
+                'Severe'
+            ],
+            required: true
+        },
+        associatedSymptoms: {
+            type: [String],
+            default: []
+        },
+        patientStatement: {
+            type: String,
+            trim: true,
+            default: ""
         },
 
         isActive: {
