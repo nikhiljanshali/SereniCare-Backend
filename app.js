@@ -22,9 +22,10 @@ import supplierRouter from "./routes/supplier.router.js";
 import medicineRouter from "./routes/medicine.router.js";
 import prescriptionRouter from './routes/prescription.route.js'
 import chiefComplaintRouter from "./routes/chiefComplaint.router.js"
+import historyOfPresentIllnessRouter from "./routes/historyofPresentIllness.router.js";
 import vitalsRouter from "./routes/vitals.router.js"
 import diseasesRouter from "./routes/diseases.router.js"
-import surgeryRouter from  "./routes/surgery.router.js"
+import surgeryRouter from "./routes/surgery.router.js"
 import pastMedicalRouter from "./routes/pastmedical.router.js";
 import PastSurgicalRouter from "./routes/pastsurgical.router.js";
 import familyHistoryRouter from "./routes/familyhistory.router.js"
@@ -33,6 +34,7 @@ import riskMasterRouter from "./routes/riskmaster.router.js"
 import patientRiskRouter from "./routes/patientrisk.router.js"
 import patientDrugReactionRouter from "./routes/patient-drug-raction.router.js"
 import familyHistoryLineageRouter from "./routes/familyHistoryLineage.router.js"
+import physicalExaminationRouter from "./routes/physicalExamination.router.js"
 
 
 const app = express();
@@ -62,6 +64,7 @@ app.use(`${middlePoint}/supplier`, supplierRouter);
 app.use(`${middlePoint}/medicine`, medicineRouter);
 app.use(`${middlePoint}/prescription`, prescriptionRouter);
 app.use(`${middlePoint}/chiefComplaint`, chiefComplaintRouter);
+app.use(`${middlePoint}/historyofPresentIllness`, historyOfPresentIllnessRouter);
 app.use(`${middlePoint}/vitals`, vitalsRouter);
 app.use(`${middlePoint}/diseases`, diseasesRouter);
 app.use(`${middlePoint}/surgery`, surgeryRouter);
@@ -73,6 +76,7 @@ app.use(`${middlePoint}/riskMaster`, riskMasterRouter);
 app.use(`${middlePoint}/patientRisk`, patientRiskRouter);
 app.use(`${middlePoint}/patientDrugReaction`, patientDrugReactionRouter);
 app.use(`${middlePoint}/familyHistoryLineage`, familyHistoryLineageRouter);
+app.use(`${middlePoint}/physicalExamination`, physicalExaminationRouter);
 
 // Start the server after MongoDB connection is established
 connectDB()

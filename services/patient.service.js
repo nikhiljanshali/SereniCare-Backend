@@ -120,7 +120,7 @@ export const getPatientById_Service = async (id) => {
     patients.map(async (patient) => {
       const doctor = await DoctorModel.findOne({
         _id: patient.primaryDoctorId,
-      }).select("firstName lastName specialization qualification experience consultationFee authUserId")
+      }).select("firstName lastName specializations qualifications experience")
       // .populate({
       //   path: "authUserId",
       //   select: "firstName lastName workEmail phone",
