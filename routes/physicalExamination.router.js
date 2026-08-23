@@ -19,4 +19,4 @@ physicalExaminationRouter.get("/getAllPhysicalExaminations", authMiddleware, fet
 physicalExaminationRouter.get("/getPhysicalExaminationById/:id", authMiddleware, fetchPhysicalExaminationById);
 physicalExaminationRouter.get("/getPhysicalExaminationByPatientId/:id", authMiddleware, fetchPhysicalExaminationByPatientId);
 
-export default physicalExaminationRouter;
+export default physicalExaminationRouter;``
