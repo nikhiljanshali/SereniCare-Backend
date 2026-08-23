@@ -89,22 +89,22 @@ export const registerPatient_Service = async (patientData, userId) => {
 };
 
 export const getAllPatients_Service = async () => {
-  // return await PatientModel.aggregate([
-  //   {
-  //     $lookup: {
-  //       from: "clinics", // collection name
-  //       localField: "_id", // doctor._id
-  //       foreignField: "doctorId", // clinic.doctorId
-  //       as: "clinicDetails",
-  //     },
-  //   },
-  //   {
-  //     $sort: { createdAt: -1 },
-  //   },
-  // ]);
   return await PatientModel.find({ isDeleted: false })
     .populate("medicalHistories")
     .populate("insuranceDetails")
+    .populate({
+      path: "appointmentBookings",
+      populate: [
+        {
+          path: "doctorId",
+          select: "firstName lastName email specialization",
+        },
+        {
+          path: "clinicId",
+          select: "name address phone",
+        },
+      ],
+    })
     .sort({ createdAt: -1 });
 };
 

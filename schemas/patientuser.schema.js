@@ -149,5 +149,21 @@ const patientSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+// Appointment virtual relationship
+patientSchema.virtual("appointmentBookings", {
+  ref: "appointmentBookings",
+  localField: "_id",
+  foreignField: "patientId",
+  justOne: false,
+});
+
+patientSchema.set("toObject", {
+  virtuals: true,
+});
+
+patientSchema.set("toJSON", {
+  virtuals: true,
+});
+
 export { medicalHistorySchema, insuranceSchema };
 export default patientSchema;
