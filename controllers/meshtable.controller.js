@@ -4,7 +4,16 @@ import {
   getPatientCount,
   getSupplierCount,
   getMedicineCount,
-  getAppointmentCount
+  getAppointmentCount,
+  getChiefofcomplaintsCount,
+  getPresentIllnessCount,
+  getPatientMedicalHistoryCount,
+  getPatientSurgicalHistoryCount,
+  getFamilyHistoryCount,
+  getAllergyHistoryCount,
+  getRiskFactorCount,
+  getAdverseDrugReactionCount,
+  getFamilyHistoryLineageCount
 } from "../services/meshtable.service.js";
 
 export const getRoleByUserIdController = async (req, res) => {
@@ -79,13 +88,31 @@ export const getCountsController = async (req, res) => {
       patientCount,
       supplierCount,
       medicineCount,
-      appointmentCount
+      appointmentCount,
+      ChiefofcomplaintsCount,
+      PresentIllnessCount,
+      PastMedicalHistoryCount,
+      PastSurgicalHistoryCount,
+      FamilyHistoryCount,
+      AllergyHistoryCount,
+      RiskFactorCount,
+      AdverseDrugReactionCount,
+      FamilyHistoryLineageCount,
     ] = await Promise.all([
       getDoctorCount(userId),
       getPatientCount(userId),
       getSupplierCount(userId),
       getMedicineCount(userId),
-      getAppointmentCount(userId)
+      getAppointmentCount(userId),
+      getChiefofcomplaintsCount(userId),
+      getPresentIllnessCount(userId),
+      getPatientMedicalHistoryCount(userId),
+      getPatientSurgicalHistoryCount(userId),
+      getFamilyHistoryCount(userId),
+      getAllergyHistoryCount(userId),
+      getRiskFactorCount(userId),
+      getAdverseDrugReactionCount(userId),
+      getFamilyHistoryLineageCount(userId)
     ]);
 
     res.status(200).json({
@@ -96,7 +123,16 @@ export const getCountsController = async (req, res) => {
         patientCount,
         supplierCount,
         medicineCount,
-        appointmentCount
+        appointmentCount,
+        ChiefofcomplaintsCount,
+        PresentIllnessCount,
+        PastMedicalHistoryCount,
+        PastSurgicalHistoryCount,
+        FamilyHistoryCount,
+        AllergyHistoryCount,
+        RiskFactorCount,
+        AdverseDrugReactionCount,
+        FamilyHistoryLineageCount,
       }
     });
   } catch (error) {

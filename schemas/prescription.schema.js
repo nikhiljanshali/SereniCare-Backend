@@ -62,25 +62,25 @@ const prescriptionSchema = new mongoose.Schema(
 
         appointmentId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "AppointmentBooking",
+            ref: "appointmentBookings",
             required: true,
         },
 
         patientId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Patient",
+            ref: "patients",
             required: true,
         },
 
         doctorId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Doctor",
+            ref: "doctors",
             required: true,
         },
         
         clinicId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Clinic",
+            ref: "clinics",
             required: true,
         },
 

@@ -3,12 +3,14 @@ import {
     updateAppointmentBookingService,
     deleteAppointmentBookingService,
     getAllAppointmentBookingService,
-    getAppointmentsByDoctorIdService,
     getDoctorAvailabilityByDayService,
     getDoctorShiftsByDayService,
     getDoctorSlotsByDayService,
     getAppointmentBookingByAppointmentIdService,
-    updateAppointmentStatusService
+    updateAppointmentStatusService,
+    getAppointmentsByDoctorIdService,
+    getAppointmentsByPatientIdService,
+    getAppointmentsByDoctorAndPatientService
 } from "../services/appointmentBooking.service.js";
 
 
@@ -116,7 +118,7 @@ export const getAllAppointmentBooking = async (req, res) => {
     }
 };
 
-export const getAppointmentsByDoctorId = async (req, res) => {
+export const getAppointmentBookingByDoctorId = async (req, res) => {
     try {
         const { doctorId } = req.params;
         const result = await getAppointmentsByDoctorIdService(doctorId);
@@ -134,6 +136,45 @@ export const getAppointmentsByDoctorId = async (req, res) => {
         });
     }
 };
+
+export const getAppointmentBookingByPatientId = async (req, res) => {
+    try {
+        const { patientId } = req.params;
+        const result = await getAppointmentsByPatientIdService(patientId);
+
+        res.status(200).json({
+            success: true,
+            message:
+                "Patient appointments fetched successfully",
+            data: result,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+export const getAppointmentsByDoctorIdPatientId = async (req, res) => {
+    try {
+        const { doctorId, patientId } = req.params;
+        const result = await getAppointmentsByDoctorAndPatientService(doctorId, patientId);
+
+        res.status(200).json({
+            success: true,
+            message:
+                "Patient appointments fetched successfully",
+            data: result,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
 
 export const getDoctorAvailabilityByDay = async (req, res) => {
     try {

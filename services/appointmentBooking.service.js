@@ -155,6 +155,46 @@ export const getAppointmentsByDoctorIdService = async (doctorId) => {
     }
 };
 
+export const getAppointmentsByPatientIdService = async (patientId) => {
+    try {
+        const appointments = await AppointmentBookingModel.find({ patientId, })
+            .populate("patientId")
+            .populate("doctorId")
+            .populate("clinicId")
+            .sort({
+                appointmentDate: -1,
+                slotStartTime: 1,
+            });
+
+        return appointments;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getAppointmentsByDoctorAndPatientService = async (
+    doctorId,
+    patientId
+) => {
+    try {
+        const appointments = await AppointmentBookingModel.find({
+            doctorId,
+            patientId
+        })
+            .populate("patientId")
+            .populate("doctorId")
+            .populate("clinicId")
+            .sort({
+                appointmentDate: -1,
+                slotStartTime: 1,
+            });
+
+        return appointments;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const getDoctorAvailabilityByDayService = async (doctorId, dayOfWeek) => {
     try {
         const availability = await DoctorAvailabilityModel.findOne({ doctorId, dayOfWeek, isAvailable: true, });
