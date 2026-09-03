@@ -2,7 +2,6 @@ import HistoryOfPresentIllnessModel from "../models/historyofPresentIllness.mode
 
 
 export const addHistoryOfPresentIllness = async (payload) => {
-    console.log(payload);
     return await HistoryOfPresentIllnessModel.create(payload);
 };
 

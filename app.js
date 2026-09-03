@@ -10,6 +10,7 @@ import authRouter from "./routes/authentication.route.js";
 import doctorsRouter from "./routes/doctors.router.js";
 import patientRouter from "./routes/patient.route.js";
 import clinicRouter from "./routes/clinic.route.js";
+import clinicstampRouter from "./routes/clinicstamp.route.js"
 import clinicTypeRouter from "./routes/clinic-type.router.js";
 import specialityRouter from "./routes/speciality.route.js";
 import roleRouter from "./routes/role.route.js";
@@ -42,7 +43,8 @@ const middlePoint = "/api/v1";
 
 /** Middleware */
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 app.get("/", (req, res) => {
   res.json({ status: "ok", message: "SereniCare backend is running" });
@@ -52,6 +54,7 @@ app.use(`${middlePoint}/authentication`, authRouter);
 app.use(`${middlePoint}/patients`, patientRouter);
 app.use(`${middlePoint}/doctors`, doctorsRouter);
 app.use(`${middlePoint}/clinics`, clinicRouter);
+app.use(`${middlePoint}/clinicstamp`, clinicstampRouter);
 app.use(`${middlePoint}/clinictype`, clinicTypeRouter);
 app.use(`${middlePoint}/speciality`, specialityRouter);
 app.use(`${middlePoint}/role`, roleRouter);
@@ -77,6 +80,7 @@ app.use(`${middlePoint}/patientRisk`, patientRiskRouter);
 app.use(`${middlePoint}/patientDrugReaction`, patientDrugReactionRouter);
 app.use(`${middlePoint}/familyHistoryLineage`, familyHistoryLineageRouter);
 app.use(`${middlePoint}/physicalExamination`, physicalExaminationRouter);
+
 
 // Start the server after MongoDB connection is established
 connectDB()

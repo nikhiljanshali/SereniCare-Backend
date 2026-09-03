@@ -1,7 +1,6 @@
 import VitalModel from "../models/vitals.model.js";
 
 export const addVital = async (payload) => {
-    console.log('payload=>>>>>>>', payload)
     return await VitalModel.create(payload);
 };
 

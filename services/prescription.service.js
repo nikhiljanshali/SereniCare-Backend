@@ -46,6 +46,7 @@ export const updatePrescriptionService = async (
         }
 
         return {
+            status: true,
             message: "Prescription updated successfully",
             data: prescription
         };
@@ -69,6 +70,7 @@ export const deletePrescriptionService = async (prescriptionId) => {
         }
 
         return {
+            status: true,
             message: "Prescription deleted successfully",
             data: prescription
         };
@@ -142,20 +144,35 @@ export const getPrescriptionByIdService = async (
 /* -------------------------------------------------------------------------- */
 /*                    Get Prescription By Patient                             */
 /* -------------------------------------------------------------------------- */
-export const getPrescriptionsByPatientService = async (
-    patientId
-) => {
+export const getPrescriptionsByPatientService = async (patientId) => {
     try {
-        const prescriptions = await PrescriptionModel
-            .find({ patientId })
-            .populate("doctorId")
-            .populate("appointmentId")
-            .sort({ prescribedDate: -1 });
-
+        const prescriptions = await PrescriptionModel.find({ patientId }).populate("patientId").populate("appointmentId").sort({ prescribedDate: -1 });
+        const prescriptionData = await Promise.all(
+            prescriptions.map(async (prescription) => {
+                const patient = await PatientModel.findById(
+                    prescription.patientId
+                );
+                const doctor = await DoctorModel.findById(
+                    prescription.doctorId
+                );
+                const clinic = await ClinicModel.findById(
+                    prescription.clinicId
+                )
+                return {
+                    ...prescription.toObject(),
+                    patientDetails: patient,
+                    doctorDetails: doctor,
+                    clinicDetails: clinic
+                };
+            })
+        );
         return {
-            count: prescriptions.length,
-            data: prescriptions
+            status: true,
+            message: "Prescription fetched successfully",
+            count: prescriptionData.length,
+            data: prescriptionData
         };
+
     } catch (error) {
         throw error;
     }
@@ -164,20 +181,38 @@ export const getPrescriptionsByPatientService = async (
 /* -------------------------------------------------------------------------- */
 /*                     Get Prescription By Doctor                             */
 /* -------------------------------------------------------------------------- */
-export const getPrescriptionsByDoctorService = async (
-    doctorId
-) => {
+export const getPrescriptionsByDoctorService = async (doctorId) => {
     try {
-        const prescriptions = await PrescriptionModel
-            .find({ doctorId })
+        const prescriptions = await PrescriptionModel.find({ doctorId })
             .populate("patientId")
             .populate("appointmentId")
             .sort({ prescribedDate: -1 });
-
+        const prescriptionData = await Promise.all(
+            prescriptions.map(async (prescription) => {
+                const patient = await PatientModel.findById(
+                    prescription.patientId
+                );
+                const doctor = await DoctorModel.findById(
+                    prescription.doctorId
+                );
+                const clinic = await ClinicModel.findById(
+                    prescription.clinicId
+                )
+                return {
+                    ...prescription.toObject(),
+                    patientDetails: patient,
+                    doctorDetails: doctor,
+                    clinicDetails: clinic
+                };
+            })
+        );
         return {
-            count: prescriptions.length,
-            data: prescriptions
+            status: true,
+            message: "Prescription fetched successfully",
+            count: prescriptionData.length,
+            data: prescriptionData
         };
+
     } catch (error) {
         throw error;
     }

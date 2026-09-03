@@ -9,7 +9,6 @@ import {
 
 export const createHistoryOfPresentIllnessController = async (req, res) => {
     try {
-        console.log('addHistoryOfPresentIllness');
         const history = await addHistoryOfPresentIllness({ ...req.body, createdBy: req.user.id, });
         res.status(201).json({
             success: true,
